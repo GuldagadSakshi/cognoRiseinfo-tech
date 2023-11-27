@@ -1,0 +1,1378 @@
+#include <iostream.h>
+#include <graphics.h>
+#include <dos.h>
+#include <conio.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include<fstream.h>
+
+#define KEY_UP 72
+#define KEY_DOWN 80
+#define KEY_LEFT 75
+#define KEY_RIGHT 77
+#define KEY_ENTER 13
+#define KEY_ESC 27
+
+fstream fp,fp1;
+char  user[100],password[100];
+void menuview();
+void login();
+void viewstudentstable();
+void studentmenuview();
+void delete_student();
+void teachermenuview();
+void addstudentview();
+void viewstudentsview();
+void viewteacherstable();
+void teachermenuview();
+void delete_teacher();
+void teachermenuview();
+void addteacherview();
+void viewteachersview();
+
+
+class student
+{
+public:
+    char admno[50];
+    char name[50];
+    char faculty[50];
+    char semester[50];
+    char section[50];
+    char batch[50];
+    char grsts[50];    
+    char stbno[50];
+    int token;
+
+	
+	void show_student(int ycoor)
+    {
+    	outtextxy(20,ycoor,admno);
+    	outtextxy(90,ycoor,name);
+    	outtextxy(330,ycoor,faculty);
+    	outtextxy(420,ycoor,semester);
+    	outtextxy(490,ycoor,section);
+    	outtextxy(540,ycoor,batch);
+    }
+    
+    char* retadmno()
+    {
+        return admno;
+    }
+    
+    void create_student()
+    {
+        clearviewport();
+        char temp,usertemp[2],stringtempp[50];
+		int n,pass_count,usx,usy,useri,i,j,incyvalue=0;
+		usertemp[1]='\0';
+		
+        line(50, 60+incyvalue , 550 , 60+incyvalue); line(50, 90+incyvalue , 550 , 90+incyvalue);
+		line(50, 60+incyvalue , 50 , 90+incyvalue); line(550, 60+incyvalue , 550 , 90+incyvalue);
+        outtextxy(80,64,"Admission no : ");
+        
+        
+        line(50, 120+incyvalue , 550 , 120+incyvalue); line(50, 150+incyvalue , 550 , 150+incyvalue);
+		line(50, 120+incyvalue , 50 , 150+incyvalue); line(550, 120+incyvalue , 550 , 150+incyvalue);	
+        outtextxy(80,124,"Student Name : ");
+        
+        line(50, 180+incyvalue , 550 , 180+incyvalue); line(50, 210+incyvalue , 550 , 210+incyvalue);
+		line(50, 180+incyvalue , 50 , 210+incyvalue); line(550, 180+incyvalue , 550 , 210+incyvalue);
+       // cout<<"\n\nEnter The Faculty of The Student ";
+        outtextxy(80,184,"Faculty : ");
+        
+         line(50, 240+incyvalue , 550 , 240+incyvalue); line(50, 270+incyvalue , 550 , 270+incyvalue);
+		line(50, 240+incyvalue , 50 , 270+incyvalue); line(550, 240+incyvalue , 550 , 270+incyvalue);
+        //cout<<"\n\nEnter The Semester of The Student ";
+        outtextxy(80,244,"Semester : ");
+        
+        line(50, 360+incyvalue , 550 , 360+incyvalue); line(50, 390+incyvalue , 550 , 390+incyvalue);
+		line(50, 360+incyvalue , 50 , 390+incyvalue); line(550, 360+incyvalue , 550 , 390+incyvalue);
+        //cout<<"\n\nEnter The Batch of The Student ";
+        outtextxy(80,364,"Batch : ");
+        
+        line(50, 300+incyvalue , 550 , 300+incyvalue); line(50, 330+incyvalue , 550 , 330+incyvalue);
+		line(50, 300+incyvalue , 50 , 330+incyvalue); line(550, 300+incyvalue , 550 , 330+incyvalue);
+        //cout<<"\n\nEnter The Section of The Student ";
+        outtextxy(80,304,"Section : ");
+        
+        line(50, 420+incyvalue , 550 , 420+incyvalue); line(50, 450+incyvalue , 550 , 450+incyvalue);
+		line(50, 420+incyvalue , 50 , 450+incyvalue); line(550, 420+incyvalue , 550 , 450+incyvalue);
+       // cout<<"\n\nEnter The Graduation status of The Student ";
+        outtextxy(80,424,"Graduation Sts : ");
+        
+        usx=260;usy=64;
+        useri=0;
+		do
+		{   usertemp[0]=getche();
+			if(usertemp[0]==13)
+				break;
+			if(usertemp[0]==8)
+			{
+				if(usx>260)
+				{
+					useri--;
+					usx=usx-15;
+					setcolor(BLACK);
+					for(i=0;i<6;i++)
+					{
+						for(j=0;j<6;j++)
+						{
+							outtextxy(usx-i,usy-j,"Û");
+							outtextxy(usx+i,usy+j,"Û");
+							outtextxy(usx+i,usy-j,"Û");
+							outtextxy(usx-i,usy+j,"Û");
+						}
+					}
+					setcolor(WHITE);
+					continue;
+				}
+			}
+			stringtempp[useri++]=usertemp[0];
+			outtextxy(usx,usy,usertemp);
+			usx+=15;
+		}while(useri<=15);
+		stringtempp[useri]='\0';
+    	strcpy(admno,stringtempp);
+        
+        
+        
+        
+        usx=260;usy=124;
+        useri=0;
+		do
+		{   usertemp[0]=getche();
+			if(usertemp[0]==13)
+				break;
+			if(usertemp[0]==8)
+			{
+				if(usx>260)
+				{
+					useri--;
+					usx=usx-15;
+					setcolor(BLACK);
+					for(i=0;i<6;i++)
+					{
+						for(j=0;j<6;j++)
+						{
+							outtextxy(usx-i,usy-j,"Û");
+							outtextxy(usx+i,usy+j,"Û");
+							outtextxy(usx+i,usy-j,"Û");
+							outtextxy(usx-i,usy+j,"Û");
+						}
+					}
+					setcolor(WHITE);
+					continue;
+				}
+			}
+			stringtempp[useri++]=usertemp[0];
+			outtextxy(usx,usy,usertemp);
+			usx+=15;
+		}while(useri<=15);
+		stringtempp[useri]='\0';
+    	strcpy(name,stringtempp);
+        
+        
+        
+        usx=260;usy=184;
+        useri=0;
+		do
+		{   usertemp[0]=getche();
+			if(usertemp[0]==13)
+				break;
+			if(usertemp[0]==8)
+			{
+				if(usx>260)
+				{
+					useri--;
+					usx=usx-15;
+					setcolor(BLACK);
+					for(i=0;i<6;i++)
+					{
+						for(j=0;j<6;j++)
+						{
+							outtextxy(usx-i,usy-j,"Û");
+							outtextxy(usx+i,usy+j,"Û");
+							outtextxy(usx+i,usy-j,"Û");
+							outtextxy(usx-i,usy+j,"Û");
+						}
+					}
+					setcolor(WHITE);
+					continue;
+				}
+			}
+			stringtempp[useri++]=usertemp[0];
+			outtextxy(usx,usy,usertemp);
+			usx+=15;
+		}while(useri<=15);
+		stringtempp[useri]='\0';
+    	strcpy(faculty,stringtempp);
+        
+        
+        usx=260;usy=244;
+        
+        useri=0;
+		do
+		{   usertemp[0]=getche();
+			if(usertemp[0]==13)
+				break;
+			if(usertemp[0]==8)
+			{
+				if(usx>260)
+				{
+					useri--;
+					usx=usx-15;
+					setcolor(BLACK);
+					for(i=0;i<6;i++)
+					{
+						for(j=0;j<6;j++)
+						{
+							outtextxy(usx-i,usy-j,"Û");
+							outtextxy(usx+i,usy+j,"Û");
+							outtextxy(usx+i,usy-j,"Û");
+							outtextxy(usx-i,usy+j,"Û");
+						}
+					}
+					setcolor(WHITE);
+					continue;
+				}
+			}
+			stringtempp[useri++]=usertemp[0];
+			outtextxy(usx,usy,usertemp);
+			usx+=15;
+		}while(useri<=15);
+		stringtempp[useri]='\0';
+    	strcpy(semester,stringtempp);
+        
+        usx=260;usy=304;
+        useri=0;
+		do
+		{   usertemp[0]=getche();
+			if(usertemp[0]==13)
+				break;
+			if(usertemp[0]==8)
+			{
+				if(usx>260)
+				{
+					useri--;
+					usx=usx-15;
+					setcolor(BLACK);
+					for(i=0;i<6;i++)
+					{
+						for(j=0;j<6;j++)
+						{
+							outtextxy(usx-i,usy-j,"Û");
+							outtextxy(usx+i,usy+j,"Û");
+							outtextxy(usx+i,usy-j,"Û");
+							outtextxy(usx-i,usy+j,"Û");
+						}
+					}
+					setcolor(WHITE);
+					continue;
+				}
+			}
+			stringtempp[useri++]=usertemp[0];
+			outtextxy(usx,usy,usertemp);
+			usx+=15;
+		}while(useri<=15);
+		stringtempp[useri]='\0';
+    	strcpy(section,stringtempp);
+        
+        usx=260;usy=364;
+        useri=0;
+		do
+		{   usertemp[0]=getche();
+			if(usertemp[0]==13)
+				break;
+			if(usertemp[0]==8)
+			{
+				if(usx>260)
+				{
+					useri--;
+					usx=usx-15;
+					setcolor(BLACK);
+					for(i=0;i<6;i++)
+					{
+						for(j=0;j<6;j++)
+						{
+							outtextxy(usx-i,usy-j,"Û");
+							outtextxy(usx+i,usy+j,"Û");
+							outtextxy(usx+i,usy-j,"Û");
+							outtextxy(usx-i,usy+j,"Û");
+						}
+					}
+					setcolor(WHITE);
+					continue;
+				}
+			}
+			stringtempp[useri++]=usertemp[0];
+			outtextxy(usx,usy,usertemp);
+			usx+=15;
+		}while(useri<=15);
+		stringtempp[useri]='\0';
+    	strcpy(batch,stringtempp);
+        
+        
+        usx=260;usy=424;
+        useri=0;
+		do
+		{   usertemp[0]=getche();
+			if(usertemp[0]==13)
+				break;
+			if(usertemp[0]==8)
+			{
+				if(usx>260)
+				{
+					useri--;
+					usx=usx-15;
+					setcolor(BLACK);
+					for(i=0;i<6;i++)
+					{
+						for(j=0;j<6;j++)
+						{
+							outtextxy(usx-i,usy-j,"Û");
+							outtextxy(usx+i,usy+j,"Û");
+							outtextxy(usx+i,usy-j,"Û");
+							outtextxy(usx-i,usy+j,"Û");
+						}
+					}
+					setcolor(WHITE);
+					continue;
+				}
+			}
+			stringtempp[useri++]=usertemp[0];
+			outtextxy(usx,usy,usertemp);
+			usx+=15;
+		}while(useri<=15);
+		stringtempp[useri]='\0';
+    	strcpy(grsts,stringtempp);
+        
+        token=0;
+        stbno[0]='/0';
+        
+ 	}
+
+}st;
+
+void delete_student()
+{
+	
+	clearviewport();
+    char n[6];
+    int flag=0;   
+        cout<<"\n\n\n\tDELETE STUDENT...";
+        cout<<"\n\nEnter The admission no. of the Student You Want To Delete : ";
+        cin>>n;
+        fp.open("studentdetail.dat",ios::in|ios::out);
+        fstream fp2;
+        fp2.open("Temp.dat",ios::out);
+        fp.seekg(0,ios::beg);
+        while(fp.read((char*)&st,sizeof(student)))
+    {
+        if(strcmpi(st.retadmno(),n)!=0)
+                 fp2.write((char*)&st,sizeof(student));
+        else
+               flag=1;
+    }
+        
+    fp2.close();
+        fp.close();
+        remove("studentdetail.dat");
+        rename("Temp.dat","studentdetail.dat");
+        if(flag==1)
+        {
+             cout<<"\n\n\tRecord Deleted ..";
+             getch();
+             clearviewport();
+        	menuview();
+        
+		}
+		else
+		{
+             cout<<"\n\nRecord not found";
+             getch();
+             clearviewport();
+        	menuview();
+  		}
+        
+}
+
+
+void addstudentview()
+{
+	char ch;
+ 	fp.open("studentdetail.dat",ios::out|ios::app);
+    st.create_student();
+  	fp.write((char*)&st,sizeof(student)); 
+  	fp.close();
+    studentmenuview();
+}
+
+void viewstudentstable()
+{
+	clearviewport();
+	int incyvalue=0;
+        
+        line(10, 60+incyvalue , 600 , 60+incyvalue); line(10, 450+incyvalue , 600 , 450+incyvalue);
+		line(10, 60+incyvalue , 10 , 450+incyvalue); line(600, 60+incyvalue , 600 , 450+incyvalue);
+		
+		line(10, 100+incyvalue , 600 , 100+incyvalue);
+				
+		outtextxy(20,64+incyvalue,"Ad No");
+		line(88, 60+incyvalue , 88 , 450+incyvalue);
+		
+		outtextxy(90,64+incyvalue,"Student Name");
+		line(328, 60+incyvalue , 328 , 450+incyvalue);
+		
+		outtextxy(330,64+incyvalue,"Faculty");
+		line(418, 60+incyvalue , 418 , 450+incyvalue);
+		
+		outtextxy(420,64+incyvalue,"Sem");
+		line(488, 60+incyvalue , 488 , 450+incyvalue);
+		
+		outtextxy(490,64+incyvalue,"Sec");
+		line(538, 60+incyvalue , 538 , 450+incyvalue);
+		
+		outtextxy(540,64+incyvalue,"Batch");
+}
+
+void viewstudentsview()
+{
+	viewstudentstable();
+	student stu[70];
+	char pagechanger;
+	int ycoor = 104 ;
+    int count=0,flag=0,i=0,j=0;
+    fp.open("studentdetail.dat",ios::in);
+    while(fp.read((char*)&st,sizeof(student)))
+    {
+    	
+    	strcpy(stu[count].admno,st.admno);
+    	strcpy(stu[count].name,st.name);
+    	strcpy(stu[count].faculty,st.faculty);
+    	strcpy(stu[count].semester,st.semester);
+    	strcpy(stu[count].section,st.section);
+    	strcpy(stu[count].batch,st.batch);
+    	strcpy(stu[count].grsts,st.grsts);
+    	strcpy(stu[count].stbno,st.stbno);
+    
+    
+    	st.show_student(ycoor);
+        ycoor+=30;
+    	count++; 
+		flag=1;
+    	if(count>10)
+    		break;
+	}
+	
+   // while(fp.read((char*)&st,sizeof(student)))
+  /* for(i=0;i<=count;i++)
+    {		
+          	stu[i].show_student(ycoor);
+          	ycoor+=30;
+           
+            j++;
+       
+            if(j>=10)
+            {   
+				pagechanger = getch();         	
+            	switch (pagechanger)
+            	{
+            	/*	case KEY_RIGHT:
+						if(i<=(i-10))
+            			{
+	            			viewstudentstable();
+	            			ycoor = 104 ;
+	            			j=0;
+						}
+            			break;
+            		
+            		case KEY_LEFT :
+            			if(i>=11)
+            			{
+	            			viewstudentstable();
+	            			i-=10;
+	            			ycoor = 104 ;
+	            			j=0;
+	            		}
+            			break;
+            		case KEY_ESC:
+						studentmenuview();
+			        default:
+			            break;
+				}
+            	
+			}
+	}	*/
+			
+    
+    	//cout<<i;
+				
+    fp.close();
+    if(flag==0)
+            cout<<"\n\nStudent data does not exist";
+    pagechanger = getch();         	
+            	switch (pagechanger)
+            	{
+            		case KEY_ESC:
+						studentmenuview();
+			        default:
+			            break;
+				}
+}
+
+void studentmenuview()
+{	
+	int arrowkeydetection ,incyvalue=60, yaxisarrowrand;
+	yaxisarrowrand = 49+incyvalue;
+	clearviewport();
+	outtextxy(160,yaxisarrowrand,"Û");
+	line(50, 30+incyvalue , 550 , 30+incyvalue); line(50, 90+incyvalue , 550 , 90+incyvalue);
+	line(50, 30+incyvalue , 50 , 90+incyvalue); line(550, 30+incyvalue , 550 , 90+incyvalue);
+	outtextxy(180,49+incyvalue,"1. Add New Student Data");
+	
+	line(50, 130+incyvalue , 550 , 130+incyvalue); line(50, 190+incyvalue , 550 , 190+incyvalue);
+	line(50, 130+incyvalue , 50 , 190+incyvalue); line(550, 130+incyvalue , 550 , 190+incyvalue);
+	outtextxy(180,149+incyvalue,"2. View All Student Data");
+	
+	line(50, 230+incyvalue , 550 , 230+incyvalue); line(50, 290+incyvalue , 550 , 290+incyvalue);
+	line(50, 230+incyvalue , 50 , 290+incyvalue); line(550, 230+incyvalue , 550 , 290+incyvalue);
+	outtextxy(180,249+incyvalue,"3. Delete Student Data");
+	
+	line(50, 330+incyvalue , 550 , 330+incyvalue); line(50, 390 +incyvalue, 550 , 390+incyvalue);
+	line(50, 330+incyvalue , 50 , 390+incyvalue); line(550, 330 +incyvalue, 550 , 390+incyvalue);  
+	outtextxy(180,349+incyvalue,"4. Main Menu");
+	
+	
+	while(1)
+    {
+    	arrowkeydetection=getch();
+        switch(arrowkeydetection) {
+        case KEY_UP:
+        	
+        	setcolor(BLACK);
+        	outtextxy(160,yaxisarrowrand,"Û");
+        	setcolor(WHITE);
+        	if (yaxisarrowrand == 49+incyvalue)
+        	{
+        		yaxisarrowrand=yaxisarrowrand;
+			}
+			else
+			{
+				yaxisarrowrand=yaxisarrowrand-100;
+			}
+            outtextxy(160,yaxisarrowrand,"Û");
+            break;
+        case KEY_DOWN:
+        	setcolor(BLACK);
+        	outtextxy(160,yaxisarrowrand,"Û");
+        	setcolor(WHITE);
+            if (yaxisarrowrand == 349+incyvalue)
+        	{
+        		yaxisarrowrand=yaxisarrowrand;
+			}
+			else
+			{
+				yaxisarrowrand=yaxisarrowrand+100;
+			}
+            outtextxy(160,yaxisarrowrand,"Û");
+            break;
+        case KEY_LEFT:
+        	setcolor(BLACK);
+        	outtextxy(160,yaxisarrowrand,"Û");
+        	setcolor(WHITE);
+            if (yaxisarrowrand == 49+incyvalue)
+        	{
+        		yaxisarrowrand=yaxisarrowrand;
+			}
+			else
+			{
+				yaxisarrowrand=yaxisarrowrand-100;
+			}
+            outtextxy(160,yaxisarrowrand,"Û");
+            break;
+        case KEY_RIGHT:
+        	setcolor(BLACK);
+        	outtextxy(160,yaxisarrowrand,"Û");
+        	setcolor(WHITE);
+            if (yaxisarrowrand == 349+incyvalue)
+        	{
+        		yaxisarrowrand=yaxisarrowrand;
+			}
+			else
+			{
+				yaxisarrowrand=yaxisarrowrand+100;
+			}
+            outtextxy(160,yaxisarrowrand,"Û");
+            break;
+        case KEY_ENTER:
+        	{
+        		if (yaxisarrowrand == 49+incyvalue)
+	        	{
+	        		addstudentview();
+				}
+				else if (yaxisarrowrand == 149+incyvalue)
+	        	{
+	        		viewstudentsview();
+				}
+				else if (yaxisarrowrand == 249+incyvalue)
+	        	{
+	        		delete_student();
+				}
+				else
+	        	{
+	        		menuview();
+				}
+			}
+		case KEY_ESC:
+			menuview();
+        default:
+            break;
+        }
+	}
+			
+}
+
+void login( )
+{
+	clearviewport();
+	char temp,usertemp[2];
+	int n,pass_count,usx,usy,useri=0,i,j;
+	settextstyle(1,0,5);
+	outtextxy(200,50,"Login");
+
+	line(50, 130 , 550 , 130); line(50, 190 , 550 , 190);
+	line(50, 130 , 50 , 190); line(550, 130 , 550 , 190);
+
+	line(50, 250 , 550 , 250); line(50, 310 , 550 , 310);
+	line(50, 250 , 50 , 310); line(550, 250 , 550 , 310);
+
+	settextstyle(1,0,2);
+	outtextxy(80,149,"Username : ");
+	outtextxy(80,269,"Password : ");
+	usertemp[1]='\0';
+	usx=260;usy=149;
+	do
+	{   usertemp[0]=getche();
+		if(usertemp[0]==13)
+			break;
+		if(usertemp[0]==KEY_ESC)
+			exit(0);
+		if(usertemp[0]==8)
+		{
+			if(usx>260)
+			{
+				useri--;
+				usx=usx-15;
+				setcolor(BLACK);
+				for(i=0;i<6;i++)
+				{
+					for(j=0;j<6;j++)
+					{
+						outtextxy(usx-i,usy-j,"Û");
+						outtextxy(usx+i,usy+j,"Û");
+						outtextxy(usx+i,usy-j,"Û");
+						outtextxy(usx-i,usy+j,"Û");
+					}
+				}
+				setcolor(WHITE);
+				continue;
+			}
+		}
+		user[useri++]=usertemp[0];
+		outtextxy(usx,usy,usertemp);
+		usx+=15;
+	}while(useri<=15);
+	user[useri]='\0';
+
+	usx=260;usy=269;
+	useri=0;
+	do
+	{   usertemp[0]=getche();
+		if(usertemp[0]==13)
+			break;
+		if(usertemp[0]==KEY_ESC)
+			exit(0);
+		if(usertemp[0]==8)
+		{
+			if(usx>260)
+			{
+				useri--;
+				usx=usx-15;
+				setcolor(BLACK);
+				for(i=0;i<6;i++)
+				{
+					for(j=0;j<6;j++)
+					{
+						outtextxy(usx-i,usy-j,"Û");
+						outtextxy(usx+i,usy+j,"Û");
+						outtextxy(usx+i,usy-j,"Û");
+						outtextxy(usx-i,usy+j,"Û");
+					}
+				}
+				setcolor(WHITE);
+				continue;
+			}
+		}
+		password[useri++]=usertemp[0];
+		outtextxy(usx,usy,"*");
+		usx+=15;
+	}while(useri<=15);
+	password[useri]='\0';
+	if(strcmp(user,"user")==0 && strcmp(password,"123")==0 )
+		{
+		menuview();
+		  }
+	else
+		{
+		outtext("Incorrect Password!!!");
+		 }
+
+}
+class teacher
+{
+    char trno[50];
+    char name[50];
+    char faculty[50];    
+    char subject1[50];
+    char subject2[50];
+    char subject3[50];
+    
+public:
+	
+	void show_teacher(int ycoor)
+    {
+    	outtextxy(20,ycoor,trno);
+    	outtextxy(90,ycoor,name);
+    	outtextxy(330,ycoor,faculty);
+    	outtextxy(420,ycoor,subject1);
+    	outtextxy(490,ycoor,subject2);
+    	outtextxy(540,ycoor,subject3);
+    }
+    
+    char* rettrno()
+    {
+        return trno;
+    }
+    
+    void create_teacher()
+    {
+        clearviewport();
+        char temp,usertemp[2],stringtempp[50];
+		int n,pass_count,usx,usy,useri,i,j,incyvalue=0;
+		usertemp[1]='\0';
+		
+        line(50, 60+incyvalue , 550 , 60+incyvalue); line(50, 90+incyvalue , 550 , 90+incyvalue);
+		line(50, 60+incyvalue , 50 , 90+incyvalue); line(550, 60+incyvalue , 550 , 90+incyvalue);
+        outtextxy(80,64,"Teacher no : ");
+        
+        
+        line(50, 120+incyvalue , 550 , 120+incyvalue); line(50, 150+incyvalue , 550 , 150+incyvalue);
+		line(50, 120+incyvalue , 50 , 150+incyvalue); line(550, 120+incyvalue , 550 , 150+incyvalue);	
+        outtextxy(80,124,"Teacher Name : ");
+        
+        line(50, 180+incyvalue , 550 , 180+incyvalue); line(50, 210+incyvalue , 550 , 210+incyvalue);
+		line(50, 180+incyvalue , 50 , 210+incyvalue); line(550, 180+incyvalue , 550 , 210+incyvalue);
+       // cout<<"\n\nEnter The Faculty of The teacher ";
+        outtextxy(80,184,"Faculty : ");
+        
+         line(50, 240+incyvalue , 550 , 240+incyvalue); line(50, 270+incyvalue , 550 , 270+incyvalue);
+		line(50, 240+incyvalue , 50 , 270+incyvalue); line(550, 240+incyvalue , 550 , 270+incyvalue);
+        //cout<<"\n\nEnter The subject1 of The teacher ";
+        outtextxy(80,244,"Subject 1 : ");
+        
+        line(50, 360+incyvalue , 550 , 360+incyvalue); line(50, 390+incyvalue , 550 , 390+incyvalue);
+		line(50, 360+incyvalue , 50 , 390+incyvalue); line(550, 360+incyvalue , 550 , 390+incyvalue);
+        //cout<<"\n\nEnter The subject3 of The teacher ";
+        outtextxy(80,364,"Subject 3 : ");
+        
+        line(50, 300+incyvalue , 550 , 300+incyvalue); line(50, 330+incyvalue , 550 , 330+incyvalue);
+		line(50, 300+incyvalue , 50 , 330+incyvalue); line(550, 300+incyvalue , 550 , 330+incyvalue);
+        //cout<<"\n\nEnter The subject2 of The teacher ";
+        outtextxy(80,304,"Subject 2 : ");
+        
+        
+        usx=260;usy=64;
+        useri=0;
+		do
+		{   usertemp[0]=getche();
+			if(usertemp[0]==13)
+				break;
+			if(usertemp[0]==8)
+			{
+				if(usx>260)
+				{
+					useri--;
+					usx=usx-15;
+					setcolor(BLACK);
+					for(i=0;i<6;i++)
+					{
+						for(j=0;j<6;j++)
+						{
+							outtextxy(usx-i,usy-j,"Û");
+							outtextxy(usx+i,usy+j,"Û");
+							outtextxy(usx+i,usy-j,"Û");
+							outtextxy(usx-i,usy+j,"Û");
+						}
+					}
+					setcolor(WHITE);
+					continue;
+				}
+			}
+			stringtempp[useri++]=usertemp[0];
+			outtextxy(usx,usy,usertemp);
+			usx+=15;
+		}while(useri<=15);
+		stringtempp[useri]='\0';
+    	strcpy(trno,stringtempp);
+        
+        
+        
+        
+        usx=260;usy=124;
+        useri=0;
+		do
+		{   usertemp[0]=getche();
+			if(usertemp[0]==13)
+				break;
+			if(usertemp[0]==8)
+			{
+				if(usx>260)
+				{
+					useri--;
+					usx=usx-15;
+					setcolor(BLACK);
+					for(i=0;i<6;i++)
+					{
+						for(j=0;j<6;j++)
+						{
+							outtextxy(usx-i,usy-j,"Û");
+							outtextxy(usx+i,usy+j,"Û");
+							outtextxy(usx+i,usy-j,"Û");
+							outtextxy(usx-i,usy+j,"Û");
+						}
+					}
+					setcolor(WHITE);
+					continue;
+				}
+			}
+			stringtempp[useri++]=usertemp[0];
+			outtextxy(usx,usy,usertemp);
+			usx+=15;
+		}while(useri<=15);
+		stringtempp[useri]='\0';
+    	strcpy(name,stringtempp);
+        
+        
+        
+        usx=260;usy=184;
+        useri=0;
+		do
+		{   usertemp[0]=getche();
+			if(usertemp[0]==13)
+				break;
+			if(usertemp[0]==8)
+			{
+				if(usx>260)
+				{
+					useri--;
+					usx=usx-15;
+					setcolor(BLACK);
+					for(i=0;i<6;i++)
+					{
+						for(j=0;j<6;j++)
+						{
+							outtextxy(usx-i,usy-j,"Û");
+							outtextxy(usx+i,usy+j,"Û");
+							outtextxy(usx+i,usy-j,"Û");
+							outtextxy(usx-i,usy+j,"Û");
+						}
+					}
+					setcolor(WHITE);
+					continue;
+				}
+			}
+			stringtempp[useri++]=usertemp[0];
+			outtextxy(usx,usy,usertemp);
+			usx+=15;
+		}while(useri<=15);
+		stringtempp[useri]='\0';
+    	strcpy(faculty,stringtempp);
+        
+        
+        usx=260;usy=244;
+        
+        useri=0;
+		do
+		{   usertemp[0]=getche();
+			if(usertemp[0]==13)
+				break;
+			if(usertemp[0]==8)
+			{
+				if(usx>260)
+				{
+					useri--;
+					usx=usx-15;
+					setcolor(BLACK);
+					for(i=0;i<6;i++)
+					{
+						for(j=0;j<6;j++)
+						{
+							outtextxy(usx-i,usy-j,"Û");
+							outtextxy(usx+i,usy+j,"Û");
+							outtextxy(usx+i,usy-j,"Û");
+							outtextxy(usx-i,usy+j,"Û");
+						}
+					}
+					setcolor(WHITE);
+					continue;
+				}
+			}
+			stringtempp[useri++]=usertemp[0];
+			outtextxy(usx,usy,usertemp);
+			usx+=15;
+		}while(useri<=15);
+		stringtempp[useri]='\0';
+    	strcpy(subject1,stringtempp);
+        
+        usx=260;usy=304;
+        useri=0;
+		do
+		{   usertemp[0]=getche();
+			if(usertemp[0]==13)
+				break;
+			if(usertemp[0]==8)
+			{
+				if(usx>260)
+				{
+					useri--;
+					usx=usx-15;
+					setcolor(BLACK);
+					for(i=0;i<6;i++)
+					{
+						for(j=0;j<6;j++)
+						{
+							outtextxy(usx-i,usy-j,"Û");
+							outtextxy(usx+i,usy+j,"Û");
+							outtextxy(usx+i,usy-j,"Û");
+							outtextxy(usx-i,usy+j,"Û");
+						}
+					}
+					setcolor(WHITE);
+					continue;
+				}
+			}
+			stringtempp[useri++]=usertemp[0];
+			outtextxy(usx,usy,usertemp);
+			usx+=15;
+		}while(useri<=15);
+		stringtempp[useri]='\0';
+    	strcpy(subject2,stringtempp);
+        
+        usx=260;usy=364;
+        useri=0;
+		do
+		{   usertemp[0]=getche();
+			if(usertemp[0]==13)
+				break;
+			if(usertemp[0]==8)
+			{
+				if(usx>260)
+				{
+					useri--;
+					usx=usx-15;
+					setcolor(BLACK);
+					for(i=0;i<6;i++)
+					{
+						for(j=0;j<6;j++)
+						{
+							outtextxy(usx-i,usy-j,"Û");
+							outtextxy(usx+i,usy+j,"Û");
+							outtextxy(usx+i,usy-j,"Û");
+							outtextxy(usx-i,usy+j,"Û");
+						}
+					}
+					setcolor(WHITE);
+					continue;
+				}
+			}
+			stringtempp[useri++]=usertemp[0];
+			outtextxy(usx,usy,usertemp);
+			usx+=15;
+		}while(useri<=15);
+		stringtempp[useri]='\0';
+    	strcpy(subject3,stringtempp);
+        
+        
+        
+        
+        
+        
+ 	}
+
+}tr;
+
+
+
+void delete_teacher()
+{
+	clearviewport();
+    char n[6];
+    int flag=0;   
+        cout<<"\n\n\n\tDELETE TEACHER...";
+        cout<<"\n\nEnter The admission no. of the teacher You Want To Delete : ";
+        cin>>n;
+        fp.open("teacherdetail.dat",ios::in|ios::out);
+        fstream fp2;
+        fp2.open("Temp.dat",ios::out);
+        fp.seekg(0,ios::beg);
+        while(fp.read((char*)&tr,sizeof(teacher)))
+    {
+        if(strcmpi(tr.rettrno(),n)!=0)
+                 fp2.write((char*)&tr,sizeof(teacher));
+        else
+               flag=1;
+    }
+        
+    fp2.close();
+        fp.close();
+        remove("teacherdetail.dat");
+        rename("Temp.dat","teacherdetail.dat");
+        if(flag==1)
+        {
+             cout<<"\n\n\tRecord Deleted ..";
+             getch();
+             clearviewport();
+        	menuview();
+        
+		}
+		else
+		{
+             cout<<"\n\nRecord not found";
+             getch();
+             clearviewport();
+        	menuview();
+  		}
+        
+}
+
+
+void addteacherview()
+{
+	char ch;
+ 	fp.open("teacherdetail.dat",ios::out|ios::app);
+    tr.create_teacher();
+  	fp.write((char*)&tr,sizeof(teacher));        
+  	fp.close();
+    teachermenuview();
+}
+
+void viewteacherstable()
+{
+	clearviewport();
+	int incyvalue=0;
+        
+        line(10, 60+incyvalue , 600 , 60+incyvalue); line(10, 450+incyvalue , 600 , 450+incyvalue);
+		line(10, 60+incyvalue , 10 , 450+incyvalue); line(600, 60+incyvalue , 600 , 450+incyvalue);
+		
+		line(10, 100+incyvalue , 600 , 100+incyvalue);
+				
+		outtextxy(20,64+incyvalue,"Tr No");
+		line(88, 60+incyvalue , 88 , 450+incyvalue);
+		
+		outtextxy(90,64+incyvalue,"Teacher Name");
+		line(328, 60+incyvalue , 328 , 450+incyvalue);
+		
+		outtextxy(330,64+incyvalue,"Faculty");
+		line(418, 60+incyvalue , 418 , 450+incyvalue);
+		
+		outtextxy(420,64+incyvalue,"SUB1");
+		line(488, 60+incyvalue , 488 , 450+incyvalue);
+		
+		outtextxy(490,64+incyvalue,"SUB2");
+		line(538, 60+incyvalue , 538 , 450+incyvalue);
+		
+		outtextxy(540,64+incyvalue,"SUB3");
+}
+
+void viewteachersview()
+{
+	viewteacherstable();
+	teacher stu[150];
+	char pagechanger;
+	int ycoor = 104 ;
+    int flag=0,i=0,j=0;
+    fp.open("teacherdetail.dat",ios::in);
+    //while(fp.read((char*)&stu[i],sizeof(teacher)))
+    while(fp.read((char*)&tr,sizeof(teacher)))
+    {		
+    i++;
+    		
+    	
+          	tr.show_teacher(ycoor);
+          	ycoor+=30;
+            flag=1;
+            
+           
+            j++;
+        /*
+            if(j>=9)
+            {   
+				pagechanger = getch();         	
+            	switch (pagechanger)
+            	{
+            		case KEY_RIGHT:
+            			viewteacherstable();
+            			j=0;
+            			break;
+            		
+            		case KEY_LEFT :
+            			viewteacherstable();
+            			i-=9;
+            			j=0;
+            			break;
+            		case KEY_ESC:
+						teachermenuview();
+			        default:
+			            break;
+				}
+            	
+			}
+			*/
+			
+    }
+    	//cout<<i;
+		getch();		
+    fp.close();
+    if(flag==0)
+            cout<<"\n\nteacher data does not exist";
+    pagechanger = getch();         	
+            	switch (pagechanger)
+            	{
+            		case KEY_ESC:
+						teachermenuview();
+			        default:
+			            break;
+				}
+}
+
+void teachermenuview()
+{	
+	int arrowkeydetection ,incyvalue=60, yaxisarrowrand;
+	yaxisarrowrand = 49+incyvalue;
+	clearviewport();
+	outtextxy(160,yaxisarrowrand,"Û");
+	line(50, 30+incyvalue , 550 , 30+incyvalue); line(50, 90+incyvalue , 550 , 90+incyvalue);
+	line(50, 30+incyvalue , 50 , 90+incyvalue); line(550, 30+incyvalue , 550 , 90+incyvalue);
+	outtextxy(180,49+incyvalue,"1. Add New teacher Data");
+	
+	line(50, 130+incyvalue , 550 , 130+incyvalue); line(50, 190+incyvalue , 550 , 190+incyvalue);
+	line(50, 130+incyvalue , 50 , 190+incyvalue); line(550, 130+incyvalue , 550 , 190+incyvalue);
+	outtextxy(180,149+incyvalue,"2. View All teacher Data");
+	
+	line(50, 230+incyvalue , 550 , 230+incyvalue); line(50, 290+incyvalue , 550 , 290+incyvalue);
+	line(50, 230+incyvalue , 50 , 290+incyvalue); line(550, 230+incyvalue , 550 , 290+incyvalue);
+	outtextxy(180,249+incyvalue,"3. Delete teacher Data");
+	
+	line(50, 330+incyvalue , 550 , 330+incyvalue); line(50, 390 +incyvalue, 550 , 390+incyvalue);
+	line(50, 330+incyvalue , 50 , 390+incyvalue); line(550, 330 +incyvalue, 550 , 390+incyvalue);  
+	outtextxy(180,349+incyvalue,"4. Main Menu");
+	
+	
+	while(1)
+    {
+    	arrowkeydetection=getch();
+        switch(arrowkeydetection) {
+        case KEY_UP:
+        	
+        	setcolor(BLACK);
+        	outtextxy(160,yaxisarrowrand,"Û");
+        	setcolor(WHITE);
+        	if (yaxisarrowrand == 49+incyvalue)
+        	{
+        		yaxisarrowrand=yaxisarrowrand;
+			}
+			else
+			{
+				yaxisarrowrand=yaxisarrowrand-100;
+			}
+            outtextxy(160,yaxisarrowrand,"Û");
+            break;
+        case KEY_DOWN:
+        	setcolor(BLACK);
+        	outtextxy(160,yaxisarrowrand,"Û");
+        	setcolor(WHITE);
+            if (yaxisarrowrand == 349+incyvalue)
+        	{
+        		yaxisarrowrand=yaxisarrowrand;
+			}
+			else
+			{
+				yaxisarrowrand=yaxisarrowrand+100;
+			}
+            outtextxy(160,yaxisarrowrand,"Û");
+            break;
+        case KEY_LEFT:
+        	setcolor(BLACK);
+        	outtextxy(160,yaxisarrowrand,"Û");
+        	setcolor(WHITE);
+            if (yaxisarrowrand == 49+incyvalue)
+        	{
+        		yaxisarrowrand=yaxisarrowrand;
+			}
+			else
+			{
+				yaxisarrowrand=yaxisarrowrand-100;
+			}
+            outtextxy(160,yaxisarrowrand,"Û");
+            break;
+        case KEY_RIGHT:
+        	setcolor(BLACK);
+        	outtextxy(160,yaxisarrowrand,"Û");
+        	setcolor(WHITE);
+            if (yaxisarrowrand == 349+incyvalue)
+        	{
+        		yaxisarrowrand=yaxisarrowrand;
+			}
+			else
+			{
+				yaxisarrowrand=yaxisarrowrand+100;
+			}
+            outtextxy(160,yaxisarrowrand,"Û");
+            break;
+        case KEY_ENTER:
+        	{
+        		if (yaxisarrowrand == 49+incyvalue)
+	        	{
+	        		addteacherview();
+				}
+				else if (yaxisarrowrand == 149+incyvalue)
+	        	{
+	        		viewteachersview();
+				}
+				else if (yaxisarrowrand == 249+incyvalue)
+	        	{
+	        		delete_teacher();
+				}
+				else
+	        	{
+	        		menuview();
+				}
+			}
+		case KEY_ESC:
+			menuview();
+        default:
+            break;
+        }
+	}
+			
+}
+void menuview()
+{
+	int arrowkeydetection , yaxisarrowrand = 99;
+	clearviewport();
+	outtextxy(180,yaxisarrowrand,"Û");
+	line(50, 30+50 , 550 , 30+50); line(50, 90+50 , 550 , 90+50);
+	line(50, 30+50 , 50 , 90+50); line(550, 30+50 , 550 , 90+50);
+	outtextxy(200,99,"1. Enter Student Menu");
+
+	line(50, 150+50 , 550 , 150+50); line(50, 210+50 , 550 , 210+50);
+	line(50, 150+50 , 50 , 210+50); line(550, 150+50 , 550 , 210+50);
+	outtextxy(200,219,"2. Enter Teacher Menu");
+
+	line(50, 270+50 , 550 , 270+50); line(50, 330+50 , 550 , 330+50);
+	line(50, 270+50 , 50 ,330+50 ); line(550, 270+50 , 550 , 330+50);
+	outtextxy(200,339,"3. Logout");
+	
+	while(1)
+    {
+    	arrowkeydetection=getch();
+        switch(arrowkeydetection) {
+        case KEY_UP:
+        	
+        	setcolor(BLACK);
+        	outtextxy(180,yaxisarrowrand,"Û");
+        	setcolor(WHITE);
+        	if (yaxisarrowrand == 99)
+        	{
+        		yaxisarrowrand=yaxisarrowrand;
+			}
+			else
+			{
+				yaxisarrowrand=yaxisarrowrand-120;
+			}
+            outtextxy(180,yaxisarrowrand,"Û");
+            break;
+        case KEY_DOWN:
+        	setcolor(BLACK);
+        	outtextxy(180,yaxisarrowrand,"Û");
+        	setcolor(WHITE);
+            if (yaxisarrowrand == 339)
+        	{
+        		yaxisarrowrand=yaxisarrowrand;
+			}
+			else
+			{
+				yaxisarrowrand=yaxisarrowrand+120;
+			}
+            outtextxy(180,yaxisarrowrand,"Û");
+            break;
+        case KEY_LEFT:
+        	setcolor(BLACK);
+        	outtextxy(180,yaxisarrowrand,"Û");
+        	setcolor(WHITE);
+            if (yaxisarrowrand == 99)
+        	{
+        		yaxisarrowrand=yaxisarrowrand;
+			}
+			else
+			{
+				yaxisarrowrand=yaxisarrowrand-120;
+			}
+            outtextxy(180,yaxisarrowrand,"Û");
+            break;
+        case KEY_RIGHT:
+        	setcolor(BLACK);
+        	outtextxy(180,yaxisarrowrand,"Û");
+        	setcolor(WHITE);
+            if (yaxisarrowrand == 339)
+        	{
+        		yaxisarrowrand=yaxisarrowrand;
+			}
+			else
+			{
+				yaxisarrowrand=yaxisarrowrand+120;
+			}
+            outtextxy(180,yaxisarrowrand,"Û");
+            break;
+        case 13:
+        	{
+        		if (yaxisarrowrand == 99)
+	        	{
+	        		studentmenuview();
+				}
+				else if (yaxisarrowrand == 219)
+	        	{
+	        		teachermenuview();
+				}
+				else
+	        	{
+	        		user[0]='\0';password[0]='\0';
+	        		login();
+				}
+			}
+        default:
+            break;
+        }
+	}
+
+}
+int main()
+{
+	int gd=DETECT , gm;
+	initgraph(&gd, &gm, "C:\\TURBOC3\\BGI");
+	login();
+	getch();
+	return 0;
+}
